@@ -2,8 +2,8 @@
 
 # Set up autograder files
 
-cp /autograder/submission/calculator.py /autograder/source/calculator.py
+cp ~/autograder/submission/calculator.py ~/autograder/source/calculator.py
 
-cd /autograder/source
+cd ~/autograder/source
 
 python3 run_tests.py
