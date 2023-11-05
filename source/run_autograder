@@ -5,17 +5,26 @@
 # EMAIL is for unique identifier for the student so then we can handle multiple requests
 # at once by creating a new directory for each student submission
 EMAIL=$(grep -o '"email":\s*"[^"]*' submission_metadata.json | sed 's/"email": "\(.*\)@.*/\1/')
-cp /autograder/submission/calculator.py /autograder/source/calculator.py
 
+cp /autograder/submission/calculator.py /autograder/source/calculator.py
 cd /autograder/source
 
+# copy config files needed for ssh as well as private key matching public key stored on oed1
 cp id_ed25519 ~/.ssh/
 cp config ~/.ssh/
+chmod 600 /root/.ssh/id_ed25519 # need to have proper permission restrictions to use the key
 
-chmod 600 /root/.ssh/id_ed25519
-ssh -o StrictHostKeyChecking=no bastion "exit" # need to do this since bastion is ProxyJump
+# need to do this since bastion is ProxyJump, this process skips the yes/no confirmation part
+# of ssh connection (this is safe because we know oed1 is a safe remote host)
+ssh -o StrictHostKeyChecking=no bastion "exit" 
+
+# make a directory with user EMAIL head (e.g. rkulskis@bu.edu -> rkulskis)
 scp -o StrictHostKeyChecking=no -r /autograder/ oed1:~/autograder_${EMAIL}
 ssh oed1 "cd ~/autograder_${EMAIL}/source && ./real_run_autograder"
+
+# copy results.json and submission_metadata.json
 scp -r oed1:~/autograder_${EMAIL}/results/results.json /autograder/results/
 scp -r oed1:~/autograder_${EMAIL}/submission_metadata.json /autograder/
+
+# cleanup on remote host oed1 when finished!
 ssh -o StrictHostKeyChecking=no oed1 "rm -rf ~/autograder_${EMAIL}"
