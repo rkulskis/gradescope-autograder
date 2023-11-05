@@ -13,9 +13,9 @@ cp id_ed25519 ~/.ssh/
 cp config ~/.ssh/
 
 chmod 600 /root/.ssh/id_ed25519
-scp -r /autograder/ oed1:~/autograder_${EMAIL}
-ssh -o StrictHostKeyChecking=no oed1 "cd ~/autograder_${EMAIL}/source && ./real_run_autograder"
-exit
-scp -r oed1:~/autograder_${EMAIL}/ /autograder/
-# ssh -o StrictHostKeyChecking=no oed1 "rm -rf ~/autograder_${EMAIL}"
-# exit
+ssh -o StrictHostKeyChecking=no bastion "exit" # need to do this since bastion is ProxyJump
+scp -o StrictHostKeyChecking=no -r /autograder/ oed1:~/autograder_${EMAIL}
+ssh oed1 "cd ~/autograder_${EMAIL}/source && ./real_run_autograder"
+scp -r oed1:~/autograder_${EMAIL}/results/results.json /autograder/results/
+scp -r oed1:~/autograder_${EMAIL}/submission_metadata.json /autograder/
+ssh -o StrictHostKeyChecking=no oed1 "rm -rf ~/autograder_${EMAIL}"

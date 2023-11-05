@@ -2,7 +2,6 @@ import unittest
 from gradescope_utils.autograder_utils.decorators import weight
 from gradescope_utils.autograder_utils.files import check_submitted_files
 
-
 class TestFiles(unittest.TestCase):
     @weight(0)
     def test_submitted_files(self):

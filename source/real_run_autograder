@@ -2,10 +2,6 @@
 #!/usr/bin/env bash
 
 # Set up autograder files, WORKDIR = /autograder
-
-cp ./submission/calculator.py ./source/calculator.py
-
-cd ./source
-sudo ./setup.sh
-
+sudo chmod +x ./real_setup.sh
+sudo ./real_setup.sh
 python3 run_tests.py

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# WORKDIR=/autograder_${EMAIL}/source
+apt-get install -y python3 python3-pip python3-dev
+
+pip3 install -r ./requirements.txt
