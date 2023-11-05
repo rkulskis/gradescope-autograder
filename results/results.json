@@ -101,7 +101,7 @@
     "leaderboard": [
         {
             "name": "time",
-            "value": 5.14,
+            "value": 5.61,
             "order": "asc"
         },
         {
@@ -111,16 +111,16 @@
         },
         {
             "name": "accuracy",
-            "value": 89.28,
+            "value": 56.63,
             "order": "desc"
         },
         {
             "name": "stars",
-            "value": "\ud83c\udf1f\ud83c\udf1f\ud83c\udf1f\ud83c\udf1f\ud83c\udf1f\ud83c\udf1f\ud83c\udf1f\ud83c\udf1f\ud83c\udf1f",
+            "value": "\ud83c\udf1f\ud83c\udf1f\ud83c\udf1f\ud83c\udf1f",
             "order": "desc"
         }
     ],
     "visibility": "visible",
-    "execution_time": "0.12",
+    "execution_time": "0.07",
     "score": 20.0
 }

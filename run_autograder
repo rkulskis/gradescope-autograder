@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# Set up autograder files
+# Set up autograder files, WORKDIR = /autograder
 
-cp ~/autograder/submission/calculator.py ~/autograder/source/calculator.py
+cp ./submission/calculator.py ./source/calculator.py
 
-cd ~/autograder/source
+cd ./source
 
 python3 run_tests.py
