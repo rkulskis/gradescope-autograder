@@ -1,0 +1,22 @@
+Host oed3
+  Hostname 192.168.0.219
+  User rkulskis 
+  IdentityFile ~/.ssh/id_ed25519
+  ProxyJump bastion
+
+Host oed2
+  Hostname 192.168.0.147
+  User rkulskis 
+  IdentityFile ~/.ssh/id_ed25519
+  ProxyJump bastion
+
+Host oed1
+  Hostname 192.168.0.144
+  User rkulskis 
+  IdentityFile ~/.ssh/id_ed25519
+  ProxyJump bastion
+
+Host bastion
+  Hostname 199.94.60.56
+  User ubuntu 
+  IdentityFile ~/.ssh/id_ed25519

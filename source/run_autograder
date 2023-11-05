@@ -6,9 +6,11 @@ cp /autograder/submission/calculator.py /autograder/source/calculator.py
 
 cd /autograder/source
 
-mv id_ed25519 ~/.ssh/
+cp id_ed25519 ~/.ssh/
+cp config ~/.ssh/
+
 chmod 600 /root/.ssh/id_ed25519
-scp -r /autograder/ ubuntu@199.94.60.56:~/
-ssh -o StrictHostKeyChecking=no ubuntu@199.94.60.56 "cd ~/autograder && ./real_run_autograder"
+scp -r /autograder/ oed1:~/
+ssh -o StrictHostKeyChecking=no oed1 "cd ~/autograder/source && ./real_run_autograder"
 exit
-python3 run_tests.py
+scp -r oed1:~/autograder/ /autograder/
