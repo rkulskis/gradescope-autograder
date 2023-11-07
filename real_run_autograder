@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
-#!/usr/bin/env bash
 
-# Set up autograder files, WORKDIR = /autograder
-sudo chmod +x ./real_setup.sh
-sudo ./real_setup.sh
-python3 run_tests.py
+# here a282 is the image id of my OPE container
+CONTAINER_ID=$(docker run -dv $(pwd):/home/ag a282)
+docker exec $CONTAINER_ID /bin/bash -c "cd /home/ag/source && \
+  sudo chmod +x ./real_setup.sh && \
+  sudo ./real_setup.sh && \
+  python3 run_tests.py"
+
+docker rm --force $CONTAINER_ID
