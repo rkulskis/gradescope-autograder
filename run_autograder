@@ -20,7 +20,7 @@ ssh -o StrictHostKeyChecking=no bastion "exit"
 
 # make a directory with user EMAIL head (e.g. rkulskis@bu.edu -> rkulskis)
 scp -o StrictHostKeyChecking=no -r /autograder/ oed1:~/autograder_${EMAIL}
-ssh oed1 "cd ~/autograder_${EMAIL} && ./real_run_autograder"
+ssh oed1 "cd ~/autograder_${EMAIL} && echo ${EMAIL} > email.txt && ./source/real_run_autograder"
 
 # copy results.json and submission_metadata.json
 scp -r oed1:~/autograder_${EMAIL}/results/results.json /autograder/results/

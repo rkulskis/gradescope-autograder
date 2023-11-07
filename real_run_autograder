@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 # here a282 is the image id of my OPE container
-CONTAINER_ID=$(docker run -dv $(pwd):/home/ag a282)
-docker exec $CONTAINER_ID /bin/bash -c "cd /home/ag/source && \
+EMAIL=$(cat email.txt)
+CONTAINER_ID=$(docker run -dv $(pwd):/home/autograder_${EMAIL} a282)
+docker exec $CONTAINER_ID /bin/bash -c "cd /home/autograder_${EMAIL}/source && \
   sudo chmod +x ./real_setup.sh && \
   sudo ./real_setup.sh && \
   python3 run_tests.py"
