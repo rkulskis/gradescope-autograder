@@ -30,6 +30,10 @@ pushing the results back to the gradescope container.
 Due to the naming of submission directories on the NERC container `~/autograder_${student_ID}` rather than `/autograder`, gradescope_utils's `check_submitted_files` 
 fails since it expects the latter path to locate the submission. This wasn't a big issue though and this test can be removed (it's `tests/test_files.py`). All other tests worked.
 <img width="1496" alt="Screenshot 2023-11-05 at 10 36 35 PM" src="https://github.com/rkulskis/gradescope-autograder/assets/91744036/258f701a-f235-4075-8920-c5450bdf2dd2">
+Here's a screenshot of the VM on NERC to which the gradescope VM `scp`s the state to and then starts a docker container to run the tests. At the end both the docker container and the directory are cleaned up (deleted) on the NERC VM.
+<img width="912" alt="Screenshot 2023-11-08 at 2 09 16 PM" src="https://github.com/rkulskis/gradescope-autograder/assets/91744036/c2e38e2e-e6bb-4a31-a49c-49d2f5fb770b">
+
+
 
 
 
