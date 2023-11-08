@@ -27,4 +27,4 @@ scp -r oed1:~/autograder_${EMAIL}/results/results.json /autograder/results/
 scp -r oed1:~/autograder_${EMAIL}/submission_metadata.json /autograder/
 
 # cleanup on remote host oed1 when finished!
-ssh -o StrictHostKeyChecking=no oed1 "rm -rf ~/autograder_${EMAIL}"
+ssh -o StrictHostKeyChecking=no oed1 "sudo rm -rf ~/autograder_${EMAIL}"
