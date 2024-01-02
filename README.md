@@ -45,3 +45,6 @@ This version of the service can scale because it uses Knative to scale in propor
 The gradescope container only sends and receives a file using `curl`, so no student code is ran on the container. This guarantees safety since the student can only submit files and cannot `ssh` into the `gradescope_autograder` container.
 
 The `autograder container` which is run on the OpenShift cluster currently executes the student code with full permissions; however, the next iteration will include running student code in a temporary directory with lower privilages such that it can't access outside of that directory. Then when you configure the service, you can hard code the USERNAME and PASSWORD used for curl authentication so that these values are no longer stored in envirnomental variables (which a student may have access to).
+
+### Testing Concurrency
+Run `python3 test_concurrent.py` which successfully tests 100 concurrent requests.
