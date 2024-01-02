@@ -1,0 +1,13 @@
+Dockerfile
+README.md
+curl.sh
+zip.sh
+run_autograder
+results.json
+submission.zip
+calculator.py
+Makefile
+*.pyc
+*.pyo
+*.pyd
+__pycache__

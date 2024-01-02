@@ -34,6 +34,14 @@ Here's a screenshot of the VM on NERC to which the gradescope VM `scp`s the stat
 <img width="912" alt="Screenshot 2023-11-08 at 2 09 16 PM" src="https://github.com/rkulskis/gradescope-autograder/assets/91744036/c2e38e2e-e6bb-4a31-a49c-49d2f5fb770b">
 
 
+## V2: OpenShift Serverless Service 
+This version of the service uses curl to send the student submission to a Knative service route on an openshift cluster. Using a TLS connection verified by a manually configured username and password, the API only accepts incoming requests from the professor's gradescope containers which are configured in the directory `gradescope_autograder`. 
+The service uses Flask to run the set of tests calling `run_tests.py` and sends a JSON response `results.json` back to the gradescope container which made the request. 
 
+### Scaling 
+This version of the service can scale because it uses Knative to scale in proportion to the requests in a severless manner. 
 
+### Security
+The gradescope container only sends and receives a file using `curl`, so no student code is ran on the container. This guarantees safety since the student can only submit files and cannot `ssh` into the `gradescope_autograder` container.
 
+The `autograder container` which is run on the OpenShift cluster currently executes the student code with full permissions; however, the next iteration will include running student code in a temporary directory with lower privilages such that it can't access outside of that directory. Then when you configure the service, you can hard code the USERNAME and PASSWORD used for curl authentication so that these values are no longer stored in envirnomental variables (which a student may have access to).

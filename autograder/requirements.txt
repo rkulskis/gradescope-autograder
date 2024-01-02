@@ -1,0 +1,5 @@
+gradescope-utils
+numpy
+Flask 
+gunicorn
+parliament

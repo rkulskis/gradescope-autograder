@@ -1,0 +1,29 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: autograder
+  namespace: rkulskis-dev
+spec:
+  template:
+    metadata:
+      annotations:
+        # Ensure a single container always running
+        autoscaling.knative.dev/minScale: "1"
+        # Set a maximum of 10 containers
+        autoscaling.knative.dev/maxScale: "10"
+        # Target 1 request in-flight per pod (no multithreading)
+        autoscaling.knative.dev/target: "1"
+        # Set the scale-up delay to 15 seconds
+        autoscaling.knative.dev/scaleUpDelay: "15s"
+        # Configure request timeout to be more than 15 seconds
+        autoscaling.knative.dev/timeoutSeconds: "20"
+    spec:
+      containerConcurrency: 1
+      containers:
+      - image: quay.io/rkulskis/autograder
+        env:
+        - name: USERNAME
+          value: "set this to whatever"
+        - name: PASSWORD 
+          value: "set this to whatever"
+
