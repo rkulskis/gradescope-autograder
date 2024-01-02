@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+WORKDIR=/autograder
+
+cd /autograder/submission
+zip submission.zip calculator.py
+curl --user "${USERNAME}:${PASSWORD}" -X POST -F "submission.zip=@submission.zip" https://autograder-rkulskis-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com > /autograder/results/results.json
+
+# EMAIL=$(grep -o '"email":\s*"[^"]*' submission_metadata.json | sed 's/"email": "\(.*\)@.*/\1/')
