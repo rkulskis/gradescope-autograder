@@ -1,11 +1,11 @@
 from flask import Flask, request, Response, send_file
-import json
 import zipfile
 import os
-import unittest
 import subprocess
-from gradescope_utils.autograder_utils.json_test_runner import JSONTestRunner
-from io import BytesIO
+import threading
+import sys
+
+lock = threading.Lock()
 
 app = Flask(__name__)
 
@@ -32,21 +32,18 @@ def upload_file():
         return 'No selected file', 400
 
     if file:
-        if os.path.isfile('/app/calculator.py'):
-            os.remove('/app/calculator.py')
-        if os.path.isfile('/app/results.json'):
-            os.remove('/app/results.json')
+        print(f"{threading.current_thread().name} waiting on LOCK", file=sys.stderr)
+        with lock:
+            # Unzip the file and run tests
+            print(f"GOT LOCK {threading.current_thread().name}", file=sys.stderr)
+            with zipfile.ZipFile(file, 'r') as zip_ref:
+                zip_ref.extractall('/app/')
 
-        # Unzip the file and run tests
-        with zipfile.ZipFile(file, 'r') as zip_ref:
-            zip_ref.extractall('/app/')
-
-        subprocess.run(['python', 'run_tests.py'])
-        # Send back results.json
-        return send_file('/app/results.json')
+            subprocess.run(['python', 'run_tests.py'])
+    
+            return send_file('/app/results.json')
     else:
         return 'File not found', 400
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0',port=int(os.environ.get('PORT', 8080)),ssl_context='adhoc')
-

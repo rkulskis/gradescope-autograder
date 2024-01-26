@@ -1,4 +1,5 @@
 gradescope-utils
+cryptography
 numpy
 Flask 
 gunicorn
