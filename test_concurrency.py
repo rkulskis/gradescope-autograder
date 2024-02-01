@@ -9,41 +9,33 @@ LINK = "https://autograder-service-ece440spring2024-619f12.apps.shift.nerc.mghpc
 
 # request with correct solution
 def make_request1(uname_pwd):
-    for http_retries in range(5):
+    for http_retries in range(2):
         try:
-            response = subprocess.run(["curl", "--user", uname_pwd, "-X", "POST", "-F", "submission.zip=@submission.zip", LINK], capture_output=True, text=True)
+            response = subprocess.run(["curl", "-m", "120", "--user", uname_pwd, "-X", "POST", "-F", "submission.zip=@submission.zip", LINK], capture_output=True, text=True)
 
             response_json = json.loads(response.stdout)
             score = response_json.get('score')
             return score
-        except subprocess.CalledProcessError as e:
-            print("retry")
-            time.sleep(5)
-        except json.JSONDecodeError:
-            print("retry")
-            time.sleep(5)
-    return 'bruh'
+        except:
+            pass
+    return 'fail'
 
 # bogus request
 def make_request2(uname_pwd):
 
-    for http_retries in range(5):
+    for http_retries in range(1):
         try:
-            response = subprocess.run(["curl", "--user", uname_pwd, "-X", "POST", "-F", "submission.zip=@./autograder/submission.zip", LINK], capture_output=True, text=True)
+            response = subprocess.run(["curl","-m", "120", "--user", uname_pwd, "-X", "POST", "-F", "submission.zip=@./standalone_vm/submission.zip", LINK], capture_output=True, text=True)
 
             response_json = json.loads(response.stdout)
             score = response_json.get('score')
             return score
-        except subprocess.CalledProcessError as e:
-            print("retry")
-            time.sleep(5)
-        except json.JSONDecodeError:
-            print("retry")
-            time.sleep(5)
-    return 'bruh'
+        except:
+            pass
+        return 'fail'
 
 def main(uname_pwd):
-    number_of_requests = 100 
+    number_of_requests = 100
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=number_of_requests) as executor:
         # Create a list of futures

@@ -39,7 +39,9 @@ def upload_file():
             with zipfile.ZipFile(file, 'r') as zip_ref:
                 zip_ref.extractall('/app/')
 
-            subprocess.run(['python', 'run_tests.py'])
+            # timeout for how long each one should run, prevents
+            # infinite loops from hogging lock
+            subprocess.run(['python', 'run_tests.py'], timeout=8)
     
             return send_file('/app/results.json')
     else:

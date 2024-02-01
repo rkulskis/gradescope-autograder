@@ -1,4 +1,4 @@
-FROM python:3.7-slim
+FROM quay.io/gaheyrich/ope:beta-ope
 
 ENV PYTHONUNBUFFERED True
 
@@ -11,4 +11,4 @@ RUN export PYTHONDONTWRITEBYTECODE=1
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD exec gunicorn --bind :$PORT --workers 1 -k gthread --threads 10 app:app
+CMD exec gunicorn --bind :$PORT --workers 1 -k gthread --threads 10 app:app --timeout 600
