@@ -29,9 +29,7 @@ Note that the architecture diagram references the
 Cloud)](https://nerc-project.github.io/nerc-docs/get-started/create-a-user-portal-account/),
 but you can set this up with any cloud you want.
 
-<img width="1275"
-alt="Screenshot 2023-11-05 at 10 34 48 PM"
-src="https://github.com/rkulskis/gradescope-autograder/assets/91744036/27cc4214-3cb1-4d31-913a-827735ae3415">
+![Architecture diagram](images/architecture.png)
 
 ## Configuration
 
@@ -64,16 +62,16 @@ Due to the naming of submission directories on the NERC container
 gradescope_utils's `check_submitted_files` fails since it expects the
 latter path to locate the submission. This wasn't a big issue though
 and this test can be removed (it's `tests/test_files.py`). All other
-tests worked.  <img width="1496" alt="Screenshot 2023-11-05 at 10 36
-35 PM"
-src="https://github.com/rkulskis/gradescope-autograder/assets/91744036/258f701a-f235-4075-8920-c5450bdf2dd2">
+tests worked.
+
+![Screenshot showing passing tests](images/test_results.png)
 
 Here's a screenshot of the VM on NERC to which the gradescope VM
 `scp`s the state to and then starts a docker container to run the
 tests. At the end both the docker container and the directory are
-cleaned up (deleted) on the NERC VM.  <img width="912" alt="Screenshot
-2023-11-08 at 2 09 16 PM"
-src="https://github.com/rkulskis/gradescope-autograder/assets/91744036/c2e38e2e-e6bb-4a31-a49c-49d2f5fb770b">
+cleaned up (deleted) on the NERC VM. 
+
+![Screenshot showing the result of running docker ps](images/docker_ps.png)
 
 ## V2: OpenShift Serverless Service
 
